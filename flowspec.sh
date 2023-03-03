@@ -27,8 +27,8 @@ MBPS=$(echo "$(( ${RATE} / 100000))M")
 UNIT=$(echo $4 | cut -d= -f2)
 ANOMALY_ID=$(echo $5 | cut -d= -f2)
 GROUP=$(echo $6 | cut -d= -f2)
-USER_API="wanguardapi"
-SECRET_API="wanguardapi"
+USER_API="wanguard_api"
+SECRET_API="wanguard_api"
 
 
 URL="-X POST http://127.0.0.1/wanguard-api/v1/bgp_announcements --user $USER_API:$SECRET_API"
