@@ -106,12 +106,12 @@ cat << EOF
 			"bgp_connector_id":"$CONNECTOR_ID",
 			"ip_protocol(s)":["UDP"],
 			"destination_prefix":"$IP",
-			"source_port(s)":"$PORT",
+			"port(s)":"$PORT",
 			"action":"Rate Limit",
 			"rate_limit":"$RATE",
 			"anomaly_id":"$ANOMALY_ID",
                         "withdraw_after":"10800",
-			"comments":"${GROUP} | ${DECODER} | SRC-PORT_${PORT} | RATE_${MBPS}"
+			"comments":"${GROUP} | ${DECODER} | PORT_${PORT} | RATE_${MBPS}"
      }
 }
 EOF
@@ -131,12 +131,12 @@ cat << EOF
                         "bgp_connector_id":"$CONNECTOR_ID",
                         "ip_protocol(s)":["UDP"],
                         "destination_prefix":"$IP",
-                        "source_port(s)":"$PORT",
+                        "port(s)":"$PORT",
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
                         "withdraw_after":"10800",
-                        "comments":"${GROUP} | ${DECODER} | SRC-PORT_${PORT} | RATE_${MBPS}"
+                        "comments":"${GROUP} | ${DECODER} | PORT_${PORT} | RATE_${MBPS}"
      }
 }
 EOF
