@@ -7,16 +7,17 @@ if [ $# -lt 3 ]
      echo
      echo " Usage: $0 <IP> <DECODER> <RATE> <ANOMALY_ID> <GROUP>"
      echo
-     echo " <DECORDER> = decoder=ICMP | decoder=NTP | decoder=SNMP | decoder=SSDP | decoder=CLDAP | decoder=INVALID"
+     echo " <DECORDER> = decoder=UDP | decoder=ICMP | decoder=NTP | decoder=SNMP | decoder=SSDP | decoder=CLDAP | decoder=INVALID | decoder=FRAGMENT | decoder=OTHER"
      echo " <RATE> = 1000000"
      echo " <ANOMALY_ID> = id=43"
      echo " <GROUP> = group=WANGUARD"
      echo
+     echo " Exemplo_0: $0 <REDE>/24 decoder=UDP rate=1000000"
      echo " Exemplo_1: $0 <IP>/32 decoder=ICMP rate=1000000"
      echo " Exemplo_2: $0 <IP>/32 decoder=NTP rate=1000000"
      echo " Exemplo_3: $0 <IP>/32 decoder=SNMP rate=2000000"
      echo " Exemplo_4: $0 <REDE>/24 decoder=FRAGMENT rate=1000000"
-     echo " Exemplo_7: $0 <REDE>/24 decoder=UDP rate=1000000"
+     echo " Exemplo_5: $0 <REDE>/24 decoder=OTHER rate=1000000"
   exit 2
 fi
 
@@ -68,6 +69,9 @@ PORT="389"
 elif [ "$DECODER" = "INVALID" ]
 then
 PORT="0"
+elif [ "$DECODER" = "OTHER" ]
+then
+PROTOCOL="\"IP-in-IP\",\"EGP\",\"GRE\",\"ESP\",\"EIGRP\",\"VRRP\""
 fi
 
 
@@ -195,6 +199,29 @@ curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
+elif [ "$DECODER" = "OTHER" ]; then
+
+generate_ratelimit_other()
+{
+cat << EOF
+{
+     "flowspec announcement":   {
+                        "bgp_connector_id":"$CONNECTOR_ID",
+                        "ip_protocol(s)":[$PROTOCOL],
+                        "destination_prefix":"$IP",
+                        "action":"Rate Limit",
+                        "rate_limit":"$RATE",
+                        "anomaly_id":"$ANOMALY_ID",
+                        "withdraw_after":"10800",
+                        "comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
+     }
+}
+EOF
+}
+
+curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_other)"
+echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
+exit 0
 
 else # PARAMETROS INCORRETOS
 
