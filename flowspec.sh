@@ -28,6 +28,7 @@ MBPS=$(echo "$(( ${RATE} / 100000))M")
 UNIT=$(echo $4 | cut -d= -f2)
 ANOMALY_ID=$(echo $5 | cut -d= -f2)
 GROUP=$(echo $6 | cut -d= -f2)
+TIMER_WITHDRAW="86400"
 USER_API="wanguard_api"
 SECRET_API="wanguard_api"
 
@@ -94,7 +95,7 @@ cat << EOF
 			"action":"Rate Limit",
 			"rate_limit":"$RATE",
 			"anomaly_id":"$ANOMALY_ID",
-			"withdraw_after":"10800",
+			"withdraw_after":"$TIMER_WITHDRAW",
 			"comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
      }
 }
@@ -120,7 +121,7 @@ cat << EOF
 			"action":"Rate Limit",
 			"rate_limit":"$RATE",
 			"anomaly_id":"$ANOMALY_ID",
-                        "withdraw_after":"10800",
+                        "withdraw_after":"$TIMER_WITHDRAW",
 			"comments":"${GROUP} | ${DECODER} | PORT_${PORT} | RATE_${MBPS}"
      }
 }
@@ -145,7 +146,7 @@ cat << EOF
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
-                        "withdraw_after":"10800",
+                        "withdraw_after":"$TIMER_WITHDRAW",
                         "comments":"${GROUP} | ${DECODER} | PORT_${PORT} | RATE_${MBPS}"
      }
 }
@@ -170,7 +171,7 @@ cat << EOF
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
-                        "withdraw_after":"10800",
+                        "withdraw_after":"$TIMER_WITHDRAW",
                         "comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
      }
 }
@@ -194,7 +195,7 @@ cat << EOF
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
-                        "withdraw_after":"10800",
+                        "withdraw_after":"$TIMER_WITHDRAW",
                         "comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
      }
 }
@@ -218,7 +219,7 @@ cat << EOF
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
-                        "withdraw_after":"10800",
+                        "withdraw_after":"$TIMER_WITHDRAW",
                         "comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
      }
 }
