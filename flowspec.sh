@@ -11,6 +11,7 @@ if [ $# -lt 3 ]
      echo " <RATE> = 1000000"
      echo " <ANOMALY_ID> = id=43"
      echo " <GROUP> = group=WANGUARD"
+     echo " <DIRECTION> = direction=incoming | direction=outgoing"
      echo
      echo " Exemplo_0: $0 <REDE>/24 decoder=UDP rate=1000000"
      echo " Exemplo_1: $0 <IP>/32 decoder=ICMP rate=1000000"
@@ -28,6 +29,7 @@ MBPS=$(echo "$(( ${RATE} / 100000))M")
 UNIT=$(echo $4 | cut -d= -f2)
 ANOMALY_ID=$(echo $5 | cut -d= -f2)
 GROUP=$(echo $6 | cut -d= -f2)
+DIRECTION=$(echo $7 | cut -d= -f2)
 TIMER_WITHDRAW="86400"
 USER_API="wanguard_api"
 SECRET_API="wanguard_api"
@@ -48,6 +50,18 @@ fi
 if [ "$UNIT" = "pkts/s" ]
 then
 echo "$DATE - FLOWSPEC_FAILED: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP] - nao e possivel criar regras pkts/s !" | stdbuf -oL tee -a $LOG
+exit 0
+fi
+
+# CHECK_DIRECTION
+if [ "$DIRECTION" = "incoming" ]
+then
+DIRECTION="destination_prefix"
+elif [ "$DIRECTION" = "outgoing" ]
+then
+DIRECTION="source_prefix"
+else
+echo "$DATE - FLOWSPEC_FAILED: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP] | DIRECTION=[$DIRECTION] - falta de parametro!" | stdbuf -oL tee -a $LOG
 exit 0
 fi
 
@@ -91,7 +105,7 @@ cat << EOF
      "flowspec announcement":	{
 			"bgp_connector_id":"$CONNECTOR_ID",
 			"ip_protocol(s)":["ICMP"],
-			"destination_prefix":"$IP",
+			"${DIRECTION}":"$IP",
 			"action":"Rate Limit",
 			"rate_limit":"$RATE",
 			"anomaly_id":"$ANOMALY_ID",
@@ -116,7 +130,7 @@ cat << EOF
      "flowspec announcement":	{
 			"bgp_connector_id":"$CONNECTOR_ID",
 			"ip_protocol(s)":["UDP"],
-			"destination_prefix":"$IP",
+			"${DIRECTION}":"$IP",
 			"port(s)":"$PORT",
 			"action":"Rate Limit",
 			"rate_limit":"$RATE",
@@ -141,7 +155,7 @@ cat << EOF
      "flowspec announcement":   {
                         "bgp_connector_id":"$CONNECTOR_ID",
                         "ip_protocol(s)":["UDP"],
-                        "destination_prefix":"$IP",
+                        "${DIRECTION}":"$IP",
                         "port(s)":"$PORT",
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
@@ -167,7 +181,7 @@ cat << EOF
                         "bgp_connector_id":"$CONNECTOR_ID",
                         "ip_protocol(s)":["UDP"],
 			"ip_fragment(s)":["true"],
-                        "destination_prefix":"$IP",
+                        "${DIRECTION}":"$IP",
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
@@ -191,7 +205,7 @@ cat << EOF
      "flowspec announcement":   {
                         "bgp_connector_id":"$CONNECTOR_ID",
                         "ip_protocol(s)":["UDP"],
-                        "destination_prefix":"$IP",
+                        "${DIRECTION}":"$IP",
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
@@ -215,7 +229,7 @@ cat << EOF
      "flowspec announcement":   {
                         "bgp_connector_id":"$CONNECTOR_ID",
                         "ip_protocol(s)":[$PROTOCOL],
-                        "destination_prefix":"$IP",
+                        "${DIRECTION}":"$IP",
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
