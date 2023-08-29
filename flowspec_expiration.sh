@@ -13,7 +13,7 @@ fi
 
 ANOMALY_ID=$(echo $1 | cut -d= -f2)
 
-CONNECTOR_ID="3"
+CONNECTOR_ID="2"
 USER_API="wanguard_api"
 SECRET_API="wanguard_api"
 LOG="/var/log/flowspec.log"
