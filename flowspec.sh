@@ -36,7 +36,7 @@ SECRET_API="wanguard_api"
 
 
 URL="-X POST http://127.0.0.1/wanguard-api/v1/bgp_announcements --user $USER_API:$SECRET_API"
-CONNECTOR_ID="3"
+CONNECTOR_ID="2"
 LOG="/var/log/flowspec.log"
 DATE=$(date "+%Y-%m-%d %H:%M:%S")
 
