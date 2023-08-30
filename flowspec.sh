@@ -13,12 +13,12 @@ if [ $# -lt 3 ]
      echo " <GROUP> = group=WANGUARD"
      echo " <DIRECTION> = direction=incoming | direction=outgoing"
      echo
-     echo " Exemplo_0: $0 <REDE>/24 decoder=UDP rate=1000000"
-     echo " Exemplo_1: $0 <IP>/32 decoder=ICMP rate=1000000"
-     echo " Exemplo_2: $0 <IP>/32 decoder=NTP rate=1000000"
-     echo " Exemplo_3: $0 <IP>/32 decoder=SNMP rate=2000000"
-     echo " Exemplo_4: $0 <REDE>/24 decoder=FRAGMENT rate=1000000"
-     echo " Exemplo_5: $0 <REDE>/24 decoder=OTHER rate=1000000"
+     echo " Exemplo_0: $0 <REDE>/24 decoder=UDP rate=1000000 direction=incoming"
+     echo " Exemplo_1: $0 <IP>/32 decoder=ICMP rate=1000000 direction=incoming"
+     echo " Exemplo_2: $0 <IP>/32 decoder=NTP rate=1000000 direction=incoming"
+     echo " Exemplo_3: $0 <IP>/32 decoder=SNMP rate=2000000 direction=outgoing"
+     echo " Exemplo_4: $0 <REDE>/24 decoder=FRAGMENT rate=1000000 direction=outgoing"
+     echo " Exemplo_5: $0 <REDE>/24 decoder=OTHER rate=1000000 direction=outgoing"
   exit 2
 fi
 
