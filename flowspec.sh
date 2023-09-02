@@ -93,6 +93,24 @@ PORT="0"
 elif [ "$DECODER" = "OTHER" ]
 then
 PROTOCOL="\"IP-in-IP\",\"EGP\",\"GRE\",\"ESP\",\"EIGRP\",\"VRRP\""
+elif [ "$DECODER" = "TCP+SYN" ]
+then
+TCP_FLAGS="\"syn\""
+elif [ "$DECODER" = "TCP+ACK" ]
+then
+TCP_FLAGS="\"ack\""
+elif [ "$DECODER" = "TCP+RST" ]
+then
+TCP_FLAGS="\"rst\""
+elif [ "$DECODER" = "TCP+SYNACK" ]
+then
+TCP_FLAGS="\"syn\",\"ack\""
+elif [ "$DECODER" = "TCP-ALL" ]
+then
+TCP_FLAGS="\"syn\",\"ack\",\"fin\",\"rst\",\"push\",\"urgent\""
+elif [ "$DECODER" = "TCP-NULL" ]
+then
+TCP_FLAGS="\"syn\",\"ack\",\"fin\",\"rst\",\"push\",\"urgent\""
 fi
 
 
