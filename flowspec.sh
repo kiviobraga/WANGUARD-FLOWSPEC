@@ -148,7 +148,7 @@ exit 0
 
 elif [ "$DECODER" = "TCP-NULL" ] || [ "$DECODER" = "TCP-ALL" ] || [ "$DECODER" = "TCP+SYN" ] || [ "$DECODER" = "TCP+ACK" ] || [ "$DECODER" = "TCP+SYNACK" ] || [ "$DECODER" = "TCP+RST" ]; then
 
-generate_ratelimit_tcpflag()
+generate_ratelimit_tcp_flags()
 {
 cat << EOF
 {
@@ -156,18 +156,18 @@ cat << EOF
 			"bgp_connector_id":"$CONNECTOR_ID",
 			"ip_protocol(s)":["TCP"],
 			"${DIRECTION}":"$IP",
-			"port(s)":"$PORT",
+                        "tcp_flag(s)":[$TCP_FLAGS],
 			"action":"Rate Limit",
 			"rate_limit":"$RATE",
 			"anomaly_id":"$ANOMALY_ID",
                         "withdraw_after":"$TIMER_WITHDRAW",
-			"comments":"${GROUP} | ${DECODER} | PORT_${PORT} | RATE_${MBPS}"
+			"comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
      }
 }
 EOF
 }
 
-curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_tcpflap)"
+curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_tcp_flaps)"
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
