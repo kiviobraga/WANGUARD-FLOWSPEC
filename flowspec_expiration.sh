@@ -1,4 +1,5 @@
 #!/bin/bash
+# kiviobraga@gmail.com
 
 # PARAMETROS
 if [ $# -lt 1 ]
