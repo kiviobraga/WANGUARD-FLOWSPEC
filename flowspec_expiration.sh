@@ -24,7 +24,7 @@ DATE=$(date "+%Y-%m-%d %H:%M:%S")
 URL_ID=$(curl -s -X GET "http://127.0.0.1/wanguard-api/v1/bgp_announcements?status=Active&anomaly_id=${ANOMALY_ID}&bgp_connector_id=${CONNECTOR_ID}" -H "Accept:application/json" --user "$USER_API:$SECRET_API" | jq -r ".[] | .href" | cut -d/ -f5)
 
 if [ ! -z "$URL_ID" ]; then
-	curl -s -X PUT -H "Content-Type:application/json" -H "Accept:application/json" --user "wkveapi:wkveapi" "http://127.0.0.1/wanguard-api/v1/bgp_announcements/${URL_ID}/status?status=Finished"
+	curl -s -X PUT -H "Content-Type:application/json" -H "Accept:application/json" --user "${USER_API}:${SECRET_API}" "http://127.0.0.1/wanguard-api/v1/bgp_announcements/${URL_ID}/status?status=Finished"
 	echo "$DATE - FLOWSPEC_DEL: ANOMALIA=[${ANOMALY_ID}] | REGRA=[${URL_ID}]" | stdbuf -oL tee -a $LOG
 	exit 0
 else
