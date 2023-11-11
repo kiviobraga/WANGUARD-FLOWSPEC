@@ -37,7 +37,7 @@ SECRET_API=$(cat /opt/andrisoft/etc/dbpass.conf)
 
 
 URL="-X POST http://127.0.0.1/wanguard-api/v1/bgp_announcements --user $USER_API:$SECRET_API"
-CONNECTOR_ID="2"
+CONNECTOR_ID=$(cat /opt/andrisoft/etc/flowspec_id.conf)
 LOG="/var/log/flowspec.log"
 DATE=$(date "+%Y-%m-%d %H:%M:%S")
 [ ! -e "$LOG" ] && touch $LOG && chown andrisoft:andrisoft $LOG
