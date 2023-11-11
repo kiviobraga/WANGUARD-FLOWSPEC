@@ -33,7 +33,7 @@ GROUP=$(echo $6 | cut -d= -f2)
 DIRECTION=$(echo $7 | cut -d= -f2)
 TIMER_WITHDRAW="86400"
 USER_API="wanguard_api"
-SECRET_API="wanguard_api"
+SECRET_API=$(cat /opt/andrisoft/etc/dbpass.conf)
 
 
 URL="-X POST http://127.0.0.1/wanguard-api/v1/bgp_announcements --user $USER_API:$SECRET_API"
