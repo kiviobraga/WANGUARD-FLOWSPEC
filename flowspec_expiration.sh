@@ -15,7 +15,7 @@ ANOMALY_ID=$(echo $1 | cut -d= -f2)
 
 CONNECTOR_ID="2"
 USER_API="wanguard_api"
-SECRET_API="wanguard_api"
+SECRET_API=$(cat /opt/andrisoft/etc/dbpass.conf)
 LOG="/var/log/flowspec.log"
 DATE=$(date "+%Y-%m-%d %H:%M:%S")
 [ ! -e "$LOG" ] && touch $LOG && chown andrisoft:andrisoft $LOG
