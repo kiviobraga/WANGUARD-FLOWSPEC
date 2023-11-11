@@ -7,3 +7,8 @@ sudo -u andrisoft /opt/andrisoft/bin/flowspec.sh {prefix} decoder={decoder} rate
 
 <br><b>2.2 - FLOWSPEC_DEL [ EXPIRES_SCRIPT ]</b></br>
 sudo -u andrisoft /opt/andrisoft/bin/flowspec_expiration.sh id={anomaly_id}
+
+<br><b>2.3 - CRYPT </b></br>
+apt-get install shc gcc
+shc -e 23/12/2024 -m "expiration!" -f flowspec_expiration.sh
+shc -e 23/12/2024 -m "expiration!" -f flowspec_expiration.sh
