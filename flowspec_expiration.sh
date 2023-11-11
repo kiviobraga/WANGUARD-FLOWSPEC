@@ -13,7 +13,7 @@ fi
 
 ANOMALY_ID=$(echo $1 | cut -d= -f2)
 
-CONNECTOR_ID="2"
+CONNECTOR_ID=$(cat /opt/andrisoft/etc/flowspec_id.conf)
 USER_API="wanguard_api"
 SECRET_API=$(cat /opt/andrisoft/etc/dbpass.conf)
 LOG="/var/log/flowspec.log"
