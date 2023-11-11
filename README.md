@@ -10,5 +10,5 @@ sudo -u andrisoft /opt/andrisoft/bin/flowspec_expiration.sh id={anomaly_id}
 
 <br><b>2.3 - CRYPT </b></br>
 <p>apt-get install shc gcc</p>
-<br>shc -e 23/12/2024 -m "expiration!" -f flowspec_expiration.sh</br>
+<p>shc -e 23/12/2024 -m "expiration!" -f flowspec_expiration.sh</p>
 <br>shc -e 23/12/2024 -m "expiration!" -f flowspec.sh</br>
