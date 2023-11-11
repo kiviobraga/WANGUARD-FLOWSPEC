@@ -94,6 +94,9 @@ then
 elif [ "$DECODER" = "MEMCACHED" ]
 then
 	PORT="11211"
+elif [ "$DECODER" = "SLP" ]
+then
+	PORT="11211"
 elif [ "$DECODER" = "INVALID" ]
 then
 	PORT="0"
@@ -128,7 +131,7 @@ echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DE
 
 exit 0
 
-elif [ "$DECODER" = "DNS" ] || [ "$DECODER" = "NTP" ] || [ "$DECODER" = "SNMP" ] || [ "$DECODER" = "CHARGEN" ] || [ "$DECODER" = "MEMCACHED" ] || [ "$DECODER" = "SSDP" ] || [ "$DECODER" = "CLDAP" ]; then
+elif [ "$DECODER" = "DNS" ] || [ "$DECODER" = "NTP" ] || [ "$DECODER" = "SNMP" ] || [ "$DECODER" = "CHARGEN" ] || [ "$DECODER" = "MEMCACHED" ] || [ "$DECODER" = "SLP" ] || [ "$DECODER" = "SSDP" ] || [ "$DECODER" = "CLDAP" ]; then
 
 generate_ratelimit()
 {
