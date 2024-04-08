@@ -7,7 +7,7 @@ if [ $# -lt 3 ]
      echo
      echo " Usage: $0 <REDE/IP> <DECODER> <RATE> <UNIT> <ANOMALY_ID> <GROUP> <DIRECTION>"
      echo
-     echo " <DECORDER> = decoder=IP | decoder=UDP | decoder=ICMP | decoder=NTP | decoder=SNMP | decoder=SSDP | decoder=CLDAP | decoder=INVALID | decoder=FRAGMENT | decoder=OTHER"
+     echo " <DECORDER> = decoder=IP | decoder=UDP | decoder=ICMP | decoder=NTP | decoder=SNMP | decoder=SSDP | decoder=CLDAP | decoder=INVALID | decoder=UDP_QUIC | decoder=FRAGMENT | decoder=OTHER"
      echo " <RATE> = 1000000"
      echo " <UNIT> = unit=bits/s | unit=pkts/s"
      echo " <ANOMALY_ID> = id=1"
@@ -100,6 +100,9 @@ then
 elif [ "$DECODER" = "INVALID" ]
 then
 	PORT="0"
+elif [ "$DECODER" = "UDP_QUIC" ]
+then
+        PORT=">=1&<=52,>=54&<=79,>=81&<=442,>=444&<=65535"
 elif [ "$DECODER" = "OTHER" ]
 then
 	PROTOCOL="\"IP-in-IP\",\"EGP\",\"GRE\",\"ESP\",\"EIGRP\",\"VRRP\""
@@ -251,6 +254,31 @@ EOF
 }
 
 curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_udp)"
+echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
+exit 0
+
+elif [ "$DECODER" = "UDP_QUIC" ]; then
+
+generate_ratelimit_udp_quic()
+{
+cat << EOF
+{
+     "flowspec announcement":   {
+                        "bgp_connector_id":"$CONNECTOR_ID",
+                        "ip_protocol(s)":["UDP"],
+                        "${DIRECTION}":"$IP",
+                        "source-port(s)":"$PORT",
+                        "action":"Rate Limit",
+                        "rate_limit":"$RATE",
+                        "anomaly_id":"$ANOMALY_ID",
+                        "withdraw_after":"$TIMER_WITHDRAW",
+                        "comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
+     }
+}
+EOF
+}
+
+curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_udp_quic)"
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
