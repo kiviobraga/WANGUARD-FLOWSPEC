@@ -267,7 +267,7 @@ cat << EOF
                         "bgp_connector_id":"$CONNECTOR_ID",
                         "ip_protocol(s)":["UDP"],
                         "${DIRECTION}":"$IP",
-                        "source-port(s)":"$PORT",
+                        "source_port(s)":"$PORT",
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
