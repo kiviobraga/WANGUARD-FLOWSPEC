@@ -46,7 +46,7 @@ DATE=$(date "+%Y-%m-%d %H:%M:%S")
 if [ "$UNIT" = "pkts/s" ]
 then
 	RATE=$(echo $3 | cut -d= -f2)
-	BPS=$(echo "$RATE * 1500 * 8" | bc)
+	BPS=$(echo "$RATE * 512 * 8" | bc)
 	MBPS=$(echo "scale=2; ${BPS} / 1000000" | bc)
 	MBPS=$(echo "${MBPS}M")
 	RATE=$(echo ${BPS} | sed s/.$//)
