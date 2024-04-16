@@ -169,12 +169,12 @@ cat << EOF
                         "bgp_connector_id":"$CONNECTOR_ID",
                         "ip_protocol(s)":["UDP"],
                         "${DIRECTION}":"$IP",
-                        "port(s)":"$PORT",
+			"ip_fragment(s)":["is-fragment"],
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
                         "withdraw_after":"$TIMER_WITHDRAW",
-                        "comments":"${GROUP} | ${DECODER} | PORT_${PORT} | RATE_${MBPS}"
+                        "comments":"${GROUP} | ${DECODER} | UDP_FRAGMENT | RATE_${MBPS}"
      }
 }
 EOF
