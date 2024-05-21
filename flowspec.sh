@@ -282,6 +282,31 @@ curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
+elif [ "$DECODER" = "TCP+RSP" ]; then
+
+generate_ratelimit_tcp_rsp()
+{
+cat << EOF
+{
+     "flowspec announcement":   {
+                        "bgp_connector_id":"$CONNECTOR_ID",
+                        "ip_protocol(s)":"TCP",
+                        "tcp_flag(s)":["rst"],
+                        "${DIRECTION}":"$IP",
+                        "action":"Rate Limit",
+                        "rate_limit":"$RATE",
+                        "anomaly_id":"$ANOMALY_ID",
+                        "withdraw_after":"$TIMER_WITHDRAW",
+                        "comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
+     }
+}
+EOF
+}
+
+curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_tcp_rsp)"
+echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
+exit 0
+
 elif [ "$DECODER" = "OTHER" ]; then
 
 generate_ratelimit_other()
