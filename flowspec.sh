@@ -282,9 +282,9 @@ curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
-elif [ "$DECODER" = "TCP+RSP" ]; then
+elif [ "$DECODER" = "TCP+RST" ]; then
 
-generate_ratelimit_tcp_rsp()
+generate_ratelimit_tcp_rst()
 {
 cat << EOF
 {
@@ -303,7 +303,7 @@ cat << EOF
 EOF
 }
 
-curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_tcp_rsp)"
+curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_tcp_rst)"
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
