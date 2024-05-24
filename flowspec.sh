@@ -103,10 +103,17 @@ then
 elif [ "$DECODER" = "UDP_QUIC" ]
 then
         PORT=">=1&<=52,>=54&<=79,>=81&<=442,>=444&<=65535"
+elif [ "$DECODER" = "TCP+RST" ]
+then
+        FLAGS="rst"
+elif [ "$DECODER" = "TCP+SYNACK" ]
+then
+        FLAGS="\"syn\",\"ack\""
 elif [ "$DECODER" = "OTHER" ]
 then
 	PROTOCOL="\"IP-in-IP\",\"EGP\",\"GRE\",\"ESP\",\"EIGRP\",\"VRRP\""
 fi
+
 
 
 if [ "$DECODER" = "ICMP" ]; then
