@@ -15,3 +15,7 @@ sudo -u andrisoft /opt/andrisoft/bin/flowspec_expiration.sh id={anomaly_id}
 
 <br><b>2.4 - CONNECTOR_ID </b></br>
 echo "2" > /opt/andrisoft/etc/flowspec_id.conf
+
+<br><b>2.5 - LOG </b></br>
+LOG="/var/log/flowspec.log"
+touch $LOG && chown andrisoft:andrisoft $LOG
