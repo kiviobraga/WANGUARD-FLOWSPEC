@@ -289,7 +289,7 @@ curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
-elif [ "$DECODER" = "TCP+RST" ] || [ "$DECODER" = "TCP+SYNACK" ] ; then
+elif [ "$DECODER" = "TCP+SYNACK" ] || [ "$DECODER" = "TCP+RST" ]; then
 
 generate_ratelimit_tcp_flags()
 {
