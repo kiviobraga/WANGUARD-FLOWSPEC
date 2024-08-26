@@ -289,16 +289,16 @@ curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
-elif [ "$DECODER" = "TCP+RST" ]; then
+elif ["$DECODER" = "TCP+RST"] || ["$DECODER" = "TCP+SYNACK"] ; then
 
-generate_ratelimit_tcp_rst()
+generate_ratelimit_tcp_flags()
 {
 cat << EOF
 {
      "flowspec announcement":   {
                         "bgp_connector_id":"$CONNECTOR_ID",
                         "ip_protocol(s)":"TCP",
-                        "tcp_flag(s)":["rst"],
+                        "tcp_flag(s)":[$FLAGS],
                         "${DIRECTION}":"$IP",
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
@@ -310,7 +310,7 @@ cat << EOF
 EOF
 }
 
-curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_tcp_rst)"
+curl $URL -H "Content-Type:application/json" -H "Accept:application/json" --data-binary "$(generate_ratelimit_tcp_flags)"
 echo "$DATE - FLOWSPEC_ADD: ANOMALIA=[$ANOMALY_ID] | PREFIX=[$IP] | DECODER=[$DECODER] | RATE=[$RATE] | UNIT=[$UNIT] | GROUP=[$GROUP]" | stdbuf -oL tee -a $LOG
 exit 0
 
