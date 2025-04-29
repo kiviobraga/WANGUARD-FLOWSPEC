@@ -109,6 +109,8 @@ then
 elif [ "$DECODER" = "TCP+SYNACK" ]
 then
         FLAGS="\"syn\",\"ack\""
+	PORT="80,443"
+        RATE="5000000"
 elif [ "$DECODER" = "OTHER" ]
 then
 	PROTOCOL="\"IP-in-IP\",\"EGP\",\"GRE\",\"ESP\",\"EIGRP\",\"VRRP\""
@@ -300,6 +302,7 @@ cat << EOF
                         "ip_protocol(s)":"TCP",
                         "tcp_flag(s)":[$FLAGS],
                         "${DIRECTION}":"$IP",
+			"source_port(s)":"$PORT",
                         "action":"Rate Limit",
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
