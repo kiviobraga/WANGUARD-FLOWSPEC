@@ -307,7 +307,7 @@ cat << EOF
                         "rate_limit":"$RATE",
                         "anomaly_id":"$ANOMALY_ID",
                         "withdraw_after":"$TIMER_WITHDRAW",
-                        "comments":"${GROUP} | ${DECODER} | RATE_${MBPS}"
+                        "comments":"${GROUP} | ${DECODER} | RATE_50M"
      }
 }
 EOF
