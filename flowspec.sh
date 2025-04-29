@@ -110,7 +110,7 @@ elif [ "$DECODER" = "TCP+SYNACK" ]
 then
         FLAGS="\"syn\",\"ack\""
 	PORT="80,443"
-        RATE="5000000"
+        RATE="50000000"
 elif [ "$DECODER" = "OTHER" ]
 then
 	PROTOCOL="\"IP-in-IP\",\"EGP\",\"GRE\",\"ESP\",\"EIGRP\",\"VRRP\""
