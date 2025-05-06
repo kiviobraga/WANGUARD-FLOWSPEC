@@ -299,7 +299,7 @@ cat << EOF
 {
      "flowspec announcement":   {
                         "bgp_connector_id":"$CONNECTOR_ID",
-                        "ip_protocol(s)":"TCP",
+                        "ip_protocol(s)":["TCP"],
                         "tcp_flag(s)":[$FLAGS],
                         "${DIRECTION}":"$IP",
 			"source_port(s)":"$PORT",
