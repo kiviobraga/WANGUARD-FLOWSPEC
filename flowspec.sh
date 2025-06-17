@@ -108,7 +108,7 @@ then
         FLAGS="rst"
 elif [ "$DECODER" = "TCP+SYNACK" ]
 then
-        FLAGS="\"syn&ack\""
+        FLAGS="\"=syn&=ack\""
 	PORT="80,443"
         RATE="50000000"
 elif [ "$DECODER" = "OTHER" ]
