@@ -8,6 +8,7 @@ sudo -u andrisoft /opt/andrisoft/bin/flowspec.sh {prefix} decoder={decoder} rate
 <br><b>2.2 - FLOWSPEC_DEL [ EXPIRES_SCRIPT ]</b></br>
 sudo -u andrisoft /opt/andrisoft/bin/flowspec_expiration.sh id={anomaly_id}
 
+<br><b>RS-FLOWSPEC-REDIRECT</b></br>
 <br><b>2.3 - FLOWSPEC_REDIRECT [ ANOMALY_SCRIPT ]</b></br>
 sudo -u andrisoft /opt/andrisoft/bin/flowspec-redirect.sh prefix={prefix} decoder=IP id={anomaly_id} group={ip_group} direction={direction} timer_withdraw=3600 
 
@@ -18,8 +19,8 @@ sudo -u andrisoft /opt/andrisoft/bin/flowspec-redirect.sh prefix={prefix} decode
 <p>shc -e 23/12/2026 -m "expiration!" -f flowspec-redirect.sh</p>
 
 <br><b>2.5 - CONNECTOR_ID </b></br>
-echo "2" > /opt/andrisoft/etc/flowspec_id.conf
-echo "3" > /opt/andrisoft/etc/flowspec-redirect_id.conf
+<p>echo "2" > /opt/andrisoft/etc/flowspec_id.conf</p>
+<p>echo "3" > /opt/andrisoft/etc/flowspec-redirect_id.conf</p>
 
 <br><b>2.6 - LOG </b></br>
 <p>LOG="/var/log/flowspec.log"</p>
