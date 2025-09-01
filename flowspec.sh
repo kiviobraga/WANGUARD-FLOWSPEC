@@ -96,7 +96,7 @@ then
 	PORT="11211"
 elif [ "$DECODER" = "SLP" ]
 then
-	PORT="11211"
+	PORT="427"
 elif [ "$DECODER" = "INVALID" ]
 then
 	PORT="0"
