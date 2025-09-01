@@ -10,7 +10,7 @@ sudo -u andrisoft /opt/andrisoft/bin/flowspec_expiration.sh id={anomaly_id}
 
 <br><b>RS-FLOWSPEC-REDIRECT</b></br>
 <br><b>2.3 - FLOWSPEC_REDIRECT [ ANOMALY_SCRIPT ]</b></br>
-sudo -u andrisoft /opt/andrisoft/bin/flowspec-redirect.sh prefix={prefix} decoder=IP id={anomaly_id} group={ip_group} direction={direction} timer_withdraw=3600 
+sudo -u andrisoft /opt/andrisoft/bin/flowspec-redirect.sh prefix={prefix} decoder={decoder} id={anomaly_id} group={ip_group} direction={direction} timer_withdraw=3600 
 
 <br><b>2.4 - CRYPT </b></br>
 <p>apt-get install shc gcc</p>
