@@ -72,7 +72,7 @@ then
 elif [ "$DECODER" = "SLP" ]
 then
 	PORT="427"
-elif [ "$DECODER" = "TCP+RST" ]
+elif [ "$DECODER" = "TCP+SYN" ]
 then
         FLAGS="syn"
 elif [ "$DECODER" = "TCP+RST" ]
